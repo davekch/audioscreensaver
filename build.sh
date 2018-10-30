@@ -5,9 +5,17 @@
 # folder to create a standalone .jar
 
 mkdir build
-unzip -d build "*.jar"
+mkdir tmp
+# move stuff unnecessary stuff to tmp
+mv *natives* tmp/
+# say y to all replaced? questions
+yes y | unzip -d build "*.jar"
 # unzip audioscreensaver again to overwrite meta-inf
-# unzip -d build audioScreensaver.jar
-# cd build/
-# zip -d ../audioScreensaver_standalone.jar "*"
-# cd ..
+yes y | unzip -d build audioScreensaver.jar
+cd build
+zip -r audioScreensaver_standalone.jar .
+cd ..
+mv build/audioScreensaver_standalone.jar .
+mv tmp/* .
+rm -r tmp
+rm -r build
